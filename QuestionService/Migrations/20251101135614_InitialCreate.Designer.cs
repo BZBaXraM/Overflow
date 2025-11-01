@@ -3,18 +3,21 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using QuestionService.Data;
 
 #nullable disable
 
-namespace QuestionService.Data.Migrations
+namespace QuestionService.Migrations
 {
     [DbContext(typeof(QuestionContext))]
-    partial class QuestionContextModelSnapshot : ModelSnapshot
+    [Migration("20251101135614_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,11 +26,56 @@ namespace QuestionService.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("QuestionService.Entities.Answer", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<bool>("Accepted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("QuestionId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserDisplayName")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+                });
+
             modelBuilder.Entity("QuestionService.Entities.Question", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(36)
                         .HasColumnType("character varying(36)");
+
+                    b.Property<int>("AnswerCount")
+                        .HasColumnType("integer");
 
                     b.Property<string>("AskerDisplayName")
                         .IsRequired()
@@ -50,9 +98,6 @@ namespace QuestionService.Data.Migrations
                     b.Property<bool>("HasAcceptedAnswer")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Notes")
-                        .HasColumnType("integer");
-
                     b.PrimitiveCollection<List<string>>("TagSlugs")
                         .IsRequired()
                         .HasColumnType("text[]");
@@ -66,6 +111,9 @@ namespace QuestionService.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ViewCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Votes")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -169,6 +217,22 @@ namespace QuestionService.Data.Migrations
                             Name = "Microservices",
                             Slug = "microservices"
                         });
+                });
+
+            modelBuilder.Entity("QuestionService.Entities.Answer", b =>
+                {
+                    b.HasOne("QuestionService.Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("QuestionService.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
                 });
 #pragma warning restore 612, 618
         }

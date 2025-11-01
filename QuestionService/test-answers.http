@@ -1,0 +1,36 @@
+# Быстрые curl команды для тестирования (замените токен и ID)
+
+# 1. Получить все вопросы
+curl -X GET "http://localhost:5000/api/questions" -H "Accept: application/json"
+
+# 2. Создать новый вопрос (замените YOUR_TOKEN)
+curl -X POST "http://localhost:5000/api/questions" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"title": "Как работать с EF Core?", "content": "Подскажите про миграции", "tags": ["ef-core", "dotnet"]}'
+
+# 3. Получить конкретный вопрос (замените QUESTION_ID)
+curl -X GET "http://localhost:5000/api/questions/QUESTION_ID" -H "Accept: application/json"
+
+# 4. Создать ответ (замените YOUR_TOKEN и QUESTION_ID)
+curl -X POST "http://localhost:5000/api/questions/QUESTION_ID/answers" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"content": "Используйте dotnet ef migrations add и dotnet ef database update"}'
+
+# 5. Получить конкретный ответ (замените QUESTION_ID и ANSWER_ID)
+curl -X GET "http://localhost:5000/api/questions/QUESTION_ID/answers/ANSWER_ID" -H "Accept: application/json"
+
+# 6. Обновить ответ (замените YOUR_TOKEN, QUESTION_ID и ANSWER_ID)
+curl -X PUT "http://localhost:5000/api/questions/QUESTION_ID/answers/ANSWER_ID" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"content": "Обновленный ответ с более подробной информацией"}'
+
+# 7. Принять ответ (замените YOUR_TOKEN, QUESTION_ID и ANSWER_ID)
+curl -X POST "http://localhost:5000/api/questions/QUESTION_ID/answers/ANSWER_ID/accept" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+# 8. Удалить ответ (замените YOUR_TOKEN, QUESTION_ID и ANSWER_ID)
+curl -X DELETE "http://localhost:5000/api/questions/QUESTION_ID/answers/ANSWER_ID" \
+  -H "Authorization: Bearer YOUR_TOKEN"

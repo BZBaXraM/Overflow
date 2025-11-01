@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace QuestionService.Validators;
 
 public class TagListValidator(int min, int max) : ValidationAttribute

@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using QuestionService.Validators;
-
 namespace QuestionService.DTOs;
 
 public class UpdateQuestionRequest

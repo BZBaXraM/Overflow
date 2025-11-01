@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using QuestionService.Data;
-using QuestionService.Entities;
-
 namespace QuestionService.Controllers;
 
 [Authorize]

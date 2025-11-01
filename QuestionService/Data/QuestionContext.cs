@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using QuestionService.Entities;
-
 namespace QuestionService.Data;
 
 public class QuestionContext : DbContext
@@ -11,6 +8,7 @@ public class QuestionContext : DbContext
 
     public DbSet<Question> Questions => Set<Question>();
     public DbSet<Tag> Tags => Set<Tag>();
+    public DbSet<Answer> Answers => Set<Answer>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

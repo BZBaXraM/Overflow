@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace QuestionService.Entities;
 
 public class Question
@@ -14,5 +12,7 @@ public class Question
     public int ViewCount { get; set; }
     public List<string> TagSlugs { get; set; } = [];
     public bool HasAcceptedAnswer { get; set; }
-    public int Notes { get; set; }
+    public int Votes { get; set; }
+    public int AnswerCount { get; set; }
+    public List<Answer> Answers { get; set; } = [];
 }

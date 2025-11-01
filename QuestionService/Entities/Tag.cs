@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace QuestionService.Entities;
 
 public class Tag
