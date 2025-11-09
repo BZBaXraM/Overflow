@@ -5,10 +5,11 @@ import {
 } from "@heroicons/react/24/solid";
 import { Button, Input } from "@heroui/react";
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 const TopNav = () => {
 	return (
-		<header className="p-2 w-full fixed top-0 z-50 border-white">
+		<header className="p-2 w-full fixed top-0 z-50 bg-white dark:bg-black">
 			<div className="flex px-10 mx-auto">
 				<div className="flex items-center gap-6">
 					<Link
@@ -35,6 +36,7 @@ const TopNav = () => {
 				/>
 
 				<div className="flex basis-1/4 shrink-0 justify-end gap-3">
+					<ThemeToggle />
 					<Button color="secondary" variant="bordered">
 						Login
 					</Button>

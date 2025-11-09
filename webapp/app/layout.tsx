@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./components/Providers";
 import TopNav from "./components/nav/TopNav";
+import SideMenu from "./components/SideMenu";
 
 export const metadata: Metadata = {
 	title: "Overflow",
@@ -14,16 +15,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className="h-full">
-			<body className="flex flex-col bg-stone-200 h-full">
+		<html suppressHydrationWarning lang="en" className="h-full">
+			<body className="flex flex-col bg-stone-200 dark:bg-default-50 h-full">
 				<Providers>
 					<TopNav />
 					<div className="flex grow overflow-auto">
-						<aside className="basis-1/3 shrink-0 border-r border-neutral-500 pt-20 sticky top-0 px-6">
-							Side menu
+						<aside className="basis-1/6 shrink-0 border-r border-neutral-500 pt-20 sticky top-0 px-6">
+							<SideMenu />
 						</aside>
 						<main className="flex-1 pt-20 h-full">{children}</main>
-						<aside className="basis-1/4 shrink-0 px-6 pt-20 bg-stone-300 sticky top-0">
+						<aside className="basis-1/4 shrink-0 px-6 pt-20 bg-stone-300 dark:bg-default-100 sticky top-0">
 							Right content
 						</aside>
 					</div>
