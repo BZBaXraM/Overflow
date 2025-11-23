@@ -1,35 +1,22 @@
 "use server";
 
+import { fetchClient } from "./fetchClient";
 import { Question } from "./types";
 
-export const getQuestions = async (tag?: string): Promise<Question[]> => {
-	let url = "http://localhost:8001/api/questions";
+export const getQuestions = async (tag?: string) => {
+	let url = "/questions";
 
 	if (tag) {
 		url += "?tag=" + encodeURIComponent(tag);
 	}
 
-	const response = await fetch(url);
-
-	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch questions: ${response.status} ${response.statusText}`,
-		);
-	}
-
-	return response.json();
+	return await fetchClient<Question[]>(url, "GET");
 };
 
-export const getQuestionById = async (id: string): Promise<Question> => {
-	const url = `http://localhost:8001/api/questions/${id}`;
+export const getQuestionById = async (id: string) => {
+	return await fetchClient<Question>(`/questions/${id}`, "GET");
+};
 
-	const response = await fetch(url);
-
-	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch questions: ${response.status} ${response.statusText}`,
-		);
-	}
-
-	return response.json();
+export const searchQuestions = async (query: string) => {
+	return await fetchClient<Question[]>(`/search?query=${query}`, "GET");
 };

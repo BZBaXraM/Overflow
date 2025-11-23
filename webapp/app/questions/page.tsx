@@ -8,11 +8,14 @@ const QuestionsPage = async ({
 	searchParams?: Promise<{ tag?: string }>;
 }) => {
 	const params = await searchParams;
-	const questions = await getQuestions(params?.tag);
+	const { data: questions, error } = await getQuestions(params?.tag);
+
+	if (error) throw error;
+
 	return (
 		<>
-			<QuestionHeader total={questions.length} tag={params?.tag} />
-			{questions.map((item) => (
+			<QuestionHeader total={questions?.length || 0} tag={params?.tag} />
+			{questions?.map((item) => (
 				<div
 					key={item.id}
 					className="py-4 not-last:border-b w-full flex"

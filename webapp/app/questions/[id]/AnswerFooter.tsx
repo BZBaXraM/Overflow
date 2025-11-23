@@ -1,6 +1,7 @@
 "use client";
 
 import { Answer } from "@/lib/types";
+import { timeAgo } from "@/lib/util";
 import { Avatar } from "@heroui/react";
 
 type Props = {
@@ -12,7 +13,7 @@ const AnswerFooter = ({ answer }: Props) => {
 		<div className="flex justify-end mt-4">
 			<div className="flex flex-col basis-2/5 bg-primary/10 px-3 py-2 gap-2 rounded-lg">
 				<span className="text-sm font-extralight">
-					asked {answer.createdAt}
+					answered {timeAgo(answer.createdAt)}
 				</span>
 				<div className="flex items-center gap-3">
 					<Avatar
